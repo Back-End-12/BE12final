@@ -15,9 +15,9 @@ app.use(express.json());
 app.use(cors);
 
 // connect to mongodb atlas database
-mongoose.connect('mongodb://mongo:cGmMYVOJdA0vUeSJjcqf@containers-us-west-139.railway.app:7731', {useNewUrlParser:true})
+mongoose.connect('mongodb+srv://febe12:febe12312345@cluster0.8eof8cn.mongodb.net/test', {useNewUrlParser:true})
 .then(() => {
-    console.log("connect to mongodb");
+    console.log("connect to mongodb atlas");
 }).catch(error => {
     console.log("Something wrong happened",error);
 })
