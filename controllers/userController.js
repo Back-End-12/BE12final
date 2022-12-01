@@ -3,7 +3,7 @@ const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
 module.exports.signup = asyncHandler(async (req, res) => {
-    const { full_name, email, username, password, role, pic } = req.body;
+    const { full_name, username, email, password, role } = req.body;
 
     const emailExists = await User.findOne({ email });
     const usernameExists = await User.findOne({ username });
@@ -34,21 +34,19 @@ module.exports.signup = asyncHandler(async (req, res) => {
 
     const user = await User.create({
         full_name, 
+        username,
         email, 
-        username, 
         password, 
-        role, 
-        pic
+        role
     });
 
     if(user){
         res.status(201).json({
             _id: user._id,
             full_name: user.full_name,
-            email: user.email, 
             username: user.username,
-            role: user.role,
-            pic: user.pic
+            email: user.email, 
+            role: user.role
         });
     }else{
         res.status(400)
@@ -109,7 +107,6 @@ module.exports.update_profile = asyncHandler(async (req, res) => {
       if (req.body.password) {
         user.password = req.body.password;
       }
-      user.pic = req.body.pic || user.pic;
   
       const updatedUser = await user.save();
   
@@ -120,7 +117,6 @@ module.exports.update_profile = asyncHandler(async (req, res) => {
         email: updatedUser.email,
         username: updatedUser.username,
         role: updatedUser.role,
-        pic: updatedUser.pic,
         token: generateToken(updatedUser._id),
       });
     } else {
@@ -157,7 +153,7 @@ module.exports.user_get_id = asyncHandler(async (req, res) => {
 })
 
 module.exports.user_post = asyncHandler(async (req, res) => {
-  const { full_name, email, username, password, role, pic } = req.body;
+  const { full_name, username, email, password, role } = req.body;
 
   const emailExists = await User.findOne({ email });
   const usernameExists = await User.findOne({ username });
@@ -188,21 +184,19 @@ module.exports.user_post = asyncHandler(async (req, res) => {
 
   const user = await User.create({
       full_name, 
+      username,
       email, 
-      username, 
       password, 
-      role, 
-      pic
+      role
   });
 
   if(user){
       res.status(201).json({
           _id: user._id,
           full_name: user.full_name,
-          email: user.email, 
           username: user.username,
-          role: user.role,
-          pic: user.pic
+          email: user.email, 
+          role: user.role
       });
   }else{
       res.status(400)
