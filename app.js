@@ -12,7 +12,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 // connect to mongodb
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
