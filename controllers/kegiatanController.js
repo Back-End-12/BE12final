@@ -2,7 +2,7 @@ const Kegiatan = require('../models/Kegiatan');
 const asyncHandler = require('express-async-handler');
 
 
-module.exports.kegiatan_get: async(req, res) => {
+module.exports.kegiatan_get: asyncHandler(async(req, res) => {
       try {
         const kegiatan = await Kegiatan.find({}, "-__v")
         
@@ -13,7 +13,7 @@ module.exports.kegiatan_get: async(req, res) => {
       } catch (error) {
         res.status(500).json({ message: "Server Error" })
       }
-    },
+    });
 
 
 module.exports.kegiatan_get_id = asyncHandler(async (req, res) => {
