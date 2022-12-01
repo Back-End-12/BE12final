@@ -14,13 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors);
 
-// connect to mongodb atlas database
-mongoose.connect('mongodb+srv://febe12:febe12312345@cluster0.8eof8cn.mongodb.net/test', {useNewUrlParser:true})
-.then(() => {
-    console.log("connect to mongodb atlas");
-}).catch(error => {
-    console.log("Something wrong happened",error);
-})
+// connect to mongodb
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 //routes
 app.use(userRoutes);
@@ -28,6 +23,6 @@ app.use(kegiatanRoutes);
 app.use(errorHandler);
 
 // start server
-app.listen(PORT, () => {
-    console.log("Server started at PORT ",PORT);
-})
+app.listen(process.env.PORT||5173, function () {
+    console.log(`listen on port ${process.env.PORT || 5173}`);
+});
