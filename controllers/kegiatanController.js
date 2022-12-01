@@ -4,7 +4,11 @@ const asyncHandler = require('express-async-handler');
 
 module.exports.kegiatan_get = asyncHandler(async (req, res) => {
   const kegiatan = await Kegiatan.find();
-  res.status(200).json({ kegiatan });
+  if (kegiatan) {
+    res.status(200).json(kegiatan);
+  } else {
+    res.status(404).json({ message: "belum ada kegiatan" });
+  }
 });
 
 
